@@ -14,10 +14,18 @@ export const Navbar = () => {
       </div>
       <ul
         tabIndex={0}
-        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-        <li><a>Homepage</a></li>
-        <li><a>Portfolio</a></li>
-        <li><a>About</a></li>
+        className="menu space-y-1 text-lg menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+        
+        <Link href={'/'}>
+        <li>Home</li>
+        </Link>
+        <Link href={'/auth/register'}>
+        <li>Register</li>
+        </Link>
+        <Link href={'/auth/login'}>
+        <li>Login</li>
+        </Link>
+        
       </ul>
     </div>
   </div>
@@ -39,6 +47,7 @@ export const Navbar = () => {
         <p className="text-2xl">
             <FaRegBell />
         </p>
+        
         <Avatar/>
     </div>
    

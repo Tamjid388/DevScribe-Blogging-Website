@@ -1,18 +1,36 @@
-// app/api/createpost/route.js
+import { connectToDB } from '@/lib/dbconnect';
 import { NextResponse } from 'next/server';
 
-export async function GET() {
-  const data = {
-    name: "tamjid ahmed",
-    age: 32
-  };
 
-  return NextResponse.json({ data });
+// all posts
+export async function GET() {
+
+    const collection = await connectToDB("allPosts");
+    const result = await collection.find().toArray()
+    return NextResponse.json({ result });
+
 }
 
-export async function POST(request:any){
 
-    const data=await request.json()
 
-    return NextResponse.json({data})
+// create post
+export async function POST(request: any) {
+
+    try {
+
+        const data = await request.json()
+        const collection = await connectToDB("allPosts");
+        const result = await collection.insertOne(data)
+
+        return NextResponse.json({
+            message: "Post created",
+            insertedId: result.insertedId
+        })
+
+    } catch (error) {
+        return NextResponse.json(error)
+
+    }
+
+
 }

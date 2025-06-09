@@ -1,3 +1,4 @@
+import { AllPosts } from "@/Components/AllPosts/AllPosts";
 
 
 export default function Home() {
@@ -5,7 +6,9 @@ export default function Home() {
     <div className="h-screen">
 <h1>
   This is my home page
+  
 </h1>
+<AllPosts/>
     </div>
   );
 }
