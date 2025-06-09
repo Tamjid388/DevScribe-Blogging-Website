@@ -26,11 +26,13 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="light">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={` bg-base-300 ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-       <main className="container mx-auto">
+       <main className="container mx-auto ">
         <Navbar/>
-        {children}
+      <section>
+          {children}
+      </section>
 
        </main>
        

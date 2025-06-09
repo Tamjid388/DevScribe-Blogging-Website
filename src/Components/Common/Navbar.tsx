@@ -1,5 +1,6 @@
 import { FaRegBell } from "react-icons/fa"
 import { Avatar } from "./Avatar"
+import Link from "next/link"
 
 
 export const Navbar = () => {
@@ -29,7 +30,12 @@ export const Navbar = () => {
 
 
     <div className="flex items-center md:space-x-2">
-        <button className="btn  btn-outline btn-primary hidden md:block">Create a Post</button>
+      <Link href={'/createnewpost'}>
+       <button className="btn  btn-outline btn-primary hidden md:block">
+          
+          Create a Post</button>
+      </Link>
+       
         <p className="text-2xl">
             <FaRegBell />
         </p>
