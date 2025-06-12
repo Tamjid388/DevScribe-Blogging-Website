@@ -1,10 +1,13 @@
 "use client"
 
+import ImageUploader from "@/Components/ImageUploader/ImageUploader";
 import MDEditor from "@uiw/react-md-editor"
+import axios from "axios";
 import { useState } from "react";
 
 
  const Maincontent = () => {
+  const [title, setTitle] = useState("");
   type Type = string | undefined;
    const [value, setValue] =useState<Type>("");
 
@@ -13,19 +16,52 @@ import { useState } from "react";
   setValue(val);
 };
 
+const handlePostTitle=(e:any)=>{
+const  title=e.target.value
+console.log(title);
+}
+
+const handlePublish=()=>{
+  axios.post("Api/createpost",{ content: value })
+    .then(res => {
+      console.log("Post created:", res.data);
+    })
+    .catch(err => {
+      console.error("Error creating post:", err);
+    });
+}
   return (
     <div className="space-y-6">
-     {/* image skilton */}
+ 
+
+     {/* Title */}
      <div>
-      <button className="label font-bold block mb-2" >Add An Image</button>
-     <input type="url" placeholder="Enter Your Image URL"
-      className="input input-primary" />
+
+      <input type="text"
+       placeholder="Write Your Post Title Here ..." className="
+       input input-ghost w-full
+       placeholder:text-3xl placeholder:font-bold p-0
+       "
+       name="title"
+       onChange={handlePostTitle}
+       />
+
+     </div>
+         {/* image input*/}
+
+     <div>
+      <ImageUploader/>
+   
      </div>
 
      {/* Markdown Editor height={200} */}
      <div  data-color-mode="light" className="">
       <MDEditor  value={value}  onChange={handleChange} />
      </div>
+
+       <button 
+       onClick={handlePublish}
+       className="btn btn-primary">Publish </button>
 
     </div>
   )

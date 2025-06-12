@@ -4,7 +4,7 @@ import { usePost } from "@/app/hooks/usePosts"
 
 export const AllPosts = () => {
     const {posts}=usePost()
-    console.log(posts);
+    // console.log(posts);
   return (
    <div className="grid md:grid-cols-3 gap-4 p-4 ">
       {posts.length === 0 ? (

@@ -10,12 +10,12 @@ export async function POST(request: NextRequest) {
 
     const userCollection = await connectToDB("Users");
 
-    // Find user by email
+
     const user = await userCollection.findOne({ email });
     if (!user) {
       return NextResponse.json(
         { error: "Invalid email or password" },
-        { status: 401 } // Unauthorized
+        { status: 401 }
       );
     }
 
@@ -29,28 +29,30 @@ export async function POST(request: NextRequest) {
     }
     // token creation:jwt 
 
-      const tokenData = {
-            id: user._id,
-            username: user.username,
-            email: user.email
+    const tokenData = {
+      id: user._id,
+      username: user.username,
+      email: user.email
 
-        }
-        const token=await jwt.sign(tokenData,process.env.JWT_SECRET!,
-            {expiresIn:"8h"}
-        )
-    
+    }
+    const token = await jwt.sign(tokenData, process.env.JWT_SECRET!,
+      { expiresIn: "8h" }
+    )
+
 
 
     // If login successful
-   const response= NextResponse.json(
-      { message: "Login successful",
-         username: user.username },
+    const response = NextResponse.json(
+      {
+        message: "Login successful",
+        username: user.username
+      },
       { status: 200 }
     );
 
-    response.cookies.set("token",token,{
-        httpOnly:true,
-       
+    response.cookies.set("token", token, {
+      httpOnly: true,
+
     })
 
     return response;

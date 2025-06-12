@@ -10,6 +10,7 @@ import { useState } from "react";
   const handleSubmit = (e: React.FormEvent) => {
     console.log("Submit button hit");
     e.preventDefault();
+    console.log({ email, password });
     loginUser({ email, password })
    
   };
