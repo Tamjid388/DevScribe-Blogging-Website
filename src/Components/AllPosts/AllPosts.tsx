@@ -1,6 +1,7 @@
 "use client";
 import { usePost } from "@/app/hooks/usePosts"
 import Loading from "../Loading/Loading";
+import Link from "next/link";
 
 
 export const AllPosts = () => {
@@ -24,7 +25,9 @@ if(loading){
               <p>{post?.content?.substring(0, 100)}...</p>
               <p className="text-sm text-gray-500">By {post.author}</p>
               <div className="card-actions justify-end">
+               <Link href={`/postdetails/${post._id}`}>
                 <button className="btn btn-primary">Read More</button>
+               </Link>
               </div>
             </div>
           </article>

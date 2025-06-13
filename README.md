@@ -1,6 +1,6 @@
-# DevScribe AI 🧠✍️
+# DevScribe  🧠✍️
 
-**DevScribe AI** is a smart, modern blogging platform built for developers. Powered by **Next.js** and integrated with **Gemini AI**, it helps you write faster, better, and stay focused. Whether you're blogging about AI, cutting-edge tech, or development tools — DevScribe AI has your back.
+**DevScribe** is a smart, modern blogging platform built for developers. Powered by **Next.js** and integrated with **Gemini AI**, it helps you write faster, better, and stay focused. Whether you're blogging about AI, cutting-edge tech, or development tools — DevScribe AI has your back.
 
 ---
 
