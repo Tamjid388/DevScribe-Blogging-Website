@@ -1,9 +1,13 @@
 "use client";
 import { usePost } from "@/app/hooks/usePosts"
+import Loading from "../Loading/Loading";
 
 
 export const AllPosts = () => {
-    const {posts}=usePost()
+    const {posts,loading}=usePost()
+if(loading){
+  return <Loading></Loading>
+}
     // console.log(posts);
   return (
    <div className="grid md:grid-cols-3 gap-4 p-4 ">
@@ -17,7 +21,7 @@ export const AllPosts = () => {
             </figure>
             <div className="card-body">
               <h2 className="card-title">{post.title}</h2>
-              <p>{post.content.substring(0, 100)}...</p>
+              <p>{post?.content?.substring(0, 100)}...</p>
               <p className="text-sm text-gray-500">By {post.author}</p>
               <div className="card-actions justify-end">
                 <button className="btn btn-primary">Read More</button>

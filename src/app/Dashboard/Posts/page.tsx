@@ -1,51 +1,38 @@
 "use client"
 
+import useCurrentUser from "@/app/hooks/useCurrentUser";
 import { usePost } from "@/app/hooks/usePosts"
+import { Trash } from "lucide-react";
 
 export default function Posts(){
+  const {currentUser}=useCurrentUser()
+
     const {posts}=usePost()
     console.log(posts);
-    return(
-        <div className="bg-white  ">
-          <h1 className="text-3xl font-bold">Posts</h1> 
+const MyPostOnly = posts.filter(post => post?.email === currentUser?.email);
 
-          <div className="overflow-x-auto">
-  <table className="table">
-    {/* head */}
-    <thead>
-      <tr>
-        <th></th>
-        <th>Name</th>
-        <th>Job</th>
-        <th>Favorite Color</th>
-      </tr>
-    </thead>
-    <tbody>
-      {/* row 1 */}
-      <tr>
-        <th>1</th>
-        <td>Cy Ganderton</td>
-        <td>Quality Control Specialist</td>
-        <td>Blue</td>
-      </tr>
-      {/* row 2 */}
-      <tr className="hover:bg-base-300">
-        <th>2</th>
-        <td>Hart Hagerty</td>
-        <td>Desktop Support Technician</td>
-        <td>Purple</td>
-      </tr>
-      {/* row 3 */}
-      <tr>
-        <th>3</th>
-        <td>Brice Swyre</td>
-        <td>Tax Accountant</td>
-        <td>Red</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-        </div>
+console.log(MyPostOnly);
+    return(
+       <div>
+      <h2 className="text-xl font-bold mb-4 m-2">My Posts</h2>
+      {MyPostOnly.length === 0 ? (
+        <p className="text-gray-500">You haven’t posted anything yet.</p>
+      ) : (
+        <ul className="space-y-2">
+          {MyPostOnly.map(post => (
+            <div key={post._id} className="p-4 m-2 bg-gray-100 rounded-md flex items-center gap-x-8" >
+              <h3 className="text-lg font-bold text-blue-600">{post.title}</h3>
+
+              <div>
+                 <Trash />
+              </div>
+
+              {/* <p className="text-sm text-gray-700">{post.content}</p> */}
+            </div>
+          ))}
+        </ul>
+      )}
+    </div>
     )
 
 }

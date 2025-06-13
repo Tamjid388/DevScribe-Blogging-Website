@@ -5,7 +5,11 @@ import axios from "axios";
 import { useState } from "react";
 
 
- const ImageUploader = () => {
+interface ImageUploaderProps {
+  onUploadSuccess: (url: string) => void; // Callback prop type
+}
+
+ const ImageUploader = ({ onUploadSuccess }: ImageUploaderProps) => {
     const [result, setResult] = useState<any>(null);
   const [isUploading, setIsUploading] = useState(false);
     const handleAutoUpload = async (e: React.ChangeEvent<HTMLInputElement>) =>{
@@ -30,6 +34,8 @@ try {
 
     // Get back the url of image from cloudinary
     const imageUrl=response.data.optimizeUrl 
+//  Send to parent
+     onUploadSuccess(imageUrl);
     console.log(imageUrl);
 } catch (error) {
     console.log("Error facing in uploading image")

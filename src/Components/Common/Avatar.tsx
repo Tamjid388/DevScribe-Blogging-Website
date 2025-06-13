@@ -32,7 +32,7 @@ export const Avatar = () => {
             <hr />
 
             <li>
- <Link href="">
+ <Link href="/Dashboard">
                 Dashboard
               </Link>
 

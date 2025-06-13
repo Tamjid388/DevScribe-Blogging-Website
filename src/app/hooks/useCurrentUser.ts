@@ -13,15 +13,33 @@ type User = {
 
 
  const useCurrentUser =() => {
-     const [currentUser,setCurrentUser]=useState<User | undefined>()
+     const [currentUser,setCurrentUser]=useState<User | undefined |null>()
 
 
      useEffect(()=>{
     const fetchCurrentuser=async()=>{
+      try {
+         const response=await axios.get("/Api/currentuser",
+          {
+          withCredentials:true
+          }
+        )
+            console.log(response.data.user);
+      
+          setCurrentUser(response.data.user)
+        
+      } catch (error:any) {
+          if (error.response?.status === 401) {
+          // Expected: user not logged in or token expired
+          console.warn("No active session. Proceeding as guest.");
+          setCurrentUser(null); // optional: fallback to guest
+        } else {
+          console.error("Error fetching user:", error);
+        }
+      }
      
-        const response=await axios.get("/Api/currentuser")
-        console.log(response.data.user);
-        setCurrentUser(response.data.user)
+       
+      
         
 
     }
