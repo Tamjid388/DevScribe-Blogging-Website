@@ -3,9 +3,9 @@ import { ObjectId } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
 
 
-
-export async function GET(req:NextRequest,{params}:{ params: { postid: string } }){
-    const {postid}=await params
+// GET a postdetails by ID
+export async function GET(req:NextRequest,{params}:{params:Promise<{postid:string}>}){
+    const {postid}= await params
     console.log(postid)
 
     try {
@@ -30,7 +30,7 @@ export async function GET(req:NextRequest,{params}:{ params: { postid: string } 
 
 }
 // Delete A Post By id
-export async function DELETE(req:NextRequest,{params}:{ params: { postid: string } }){
+export async function DELETE(req:NextRequest,{params}:{params:Promise<{postid:string}>}){
     const {postid}=await params
     console.log(postid)
 

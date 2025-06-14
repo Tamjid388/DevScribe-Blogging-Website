@@ -6,9 +6,11 @@ import { useEffect } from "react";
 
 
 
+type PageProps = {
+  params: Promise<{ slug: string }>;
+};
 
-
-const Postdetails=async({params}:{ params: { slug: string } })=>{
+const Postdetails=async({params}:PageProps)=>{
     const {slug}=await params
     console.log(slug);
 
