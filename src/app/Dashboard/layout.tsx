@@ -12,11 +12,11 @@ export default function DashboardLayout({
         <hr className="mt-6" />
 
         <main className="grid grid-cols-12 py-12 gap-6">
-            <div className="border-2 col-span-2">
+            <div className="col-span-2">
                 <Sidebar />
             </div>
 
-            <div className="border-2  col-span-10">
+            <div className="  col-span-10">
                 {children}
             </div>
         </main>

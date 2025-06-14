@@ -41,3 +41,7 @@ export const useLogin=()=>{
     loginUser,  loading,
   }
 }
+
+const useRegistration=()=>{
+  
+}

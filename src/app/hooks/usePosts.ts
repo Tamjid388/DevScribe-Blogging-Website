@@ -10,6 +10,7 @@ type Posts = {
   email?: string;
   thumbnail?: string;
   content?: string;
+  createdAt?:string
 };
 
 

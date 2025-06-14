@@ -1,12 +1,29 @@
 "use client"
+import { useRouter } from 'next/navigation';
 import useCurrentUser from '@/app/hooks/useCurrentUser'
+import { useLogoutUserMutation } from '@/services/apiSlice'
 import Link from 'next/link'
 import React from 'react'
+import Swal from 'sweetalert2';
 
 export const Avatar = () => {
   const { currentUser } = useCurrentUser()
   // console.log(currentUser?.username);
+  const [logoutUser, { isLoading }] = useLogoutUserMutation();
+  const router = useRouter();
 
+
+ const handleLogout = async () => {
+    try {
+      await logoutUser().unwrap();
+      // Clear client-side state if needed
+      router.push('/');
+      Swal.fire("Logout");
+    } catch (error) {
+       Swal.fire("Logout failed");
+      console.log('Logout failed:', error);
+    }
+  };
   return (
     <div className="bg-base-300  p-1 shadow-sm border border-gray-300 rounded-full">
 
@@ -53,7 +70,7 @@ export const Avatar = () => {
             </li>
 
             <hr />
-            <li className='text-red-500'>
+            <li onClick={handleLogout} className='text-red-500'>
               <Link href="">
                 Logout
               </Link>

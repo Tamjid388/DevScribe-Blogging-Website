@@ -4,6 +4,7 @@ import useCurrentUser from "@/app/hooks/useCurrentUser";
 import ImageUploader from "@/Components/ImageUploader/ImageUploader";
 import MDEditor from "@uiw/react-md-editor"
 import axios from "axios";
+import moment from "moment";
 import { useState } from "react";
 import Swal from "sweetalert2";
 
@@ -13,6 +14,10 @@ const Maincontent = () => {
   const [imageUrl, setImageUrl] = useState("");
   type Type = string | undefined;
   const [value, setValue] = useState<Type>("");
+
+  const date=new Date()
+  const PublishDate=moment(date).format("MMM Do YY"); 
+  console.log(PublishDate);
 
 const {currentUser}=useCurrentUser()
 console.log(currentUser);
@@ -43,10 +48,11 @@ console.log(currentUser);
   const handlePublish = () => {
     const blogDatas = {
       title: title,
-      description: value,
+      content: value,
       thumbnail: imageUrl,
       author:currentUser?.username,
-      email:currentUser?.email
+      email:currentUser?.email,
+      createdAt:PublishDate
     }
 
 

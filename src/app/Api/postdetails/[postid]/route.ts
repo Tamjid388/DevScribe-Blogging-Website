@@ -29,3 +29,37 @@ export async function GET(req:NextRequest,{params}:{ params: { postid: string } 
    
 
 }
+// Delete A Post By id
+export async function DELETE(req:NextRequest,{params}:{ params: { postid: string } }){
+    const {postid}=await params
+    console.log(postid)
+
+    try {
+        const allPostsCollection=await connectToDB('allPosts')
+       const result=await allPostsCollection.deleteOne({
+        _id:new ObjectId(postid)
+       })
+
+if(result.deletedCount=== 0){
+    return NextResponse.json(
+        {message:"Post Not Existed"},
+        {status:404}
+    )
+
+}else{
+    return  NextResponse.json(
+        {message:"Post deleted Successfully"},
+        {status:200}
+    )
+}
+
+
+    } catch (error) {
+          console.error("Error fetching post:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    }
+
+
+   
+
+}
