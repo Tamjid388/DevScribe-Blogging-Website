@@ -37,6 +37,16 @@ export const apiSlice = createApi({
       }
     )
     }),
+
+      loginUser: builder.mutation({
+      query: (credentials) => ({
+        url: 'signinuser',
+        method: 'POST',
+        body: credentials,
+      }),
+      invalidatesTags: ['User'], // Invalidate user data on login
+    }),
+
     
     // User Logout
     logoutUser: builder.mutation<any,void>({
@@ -46,6 +56,15 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ['User'] // Invalidates user-related cached data
     }),
+
+    // Get CurrentUser
+
+    getCurrentUser: builder.query({
+      query: () => "/currentuser", 
+      providesTags: ["User"], 
+    
+    }),
+
 
 
     // Get All  Post endpoint
@@ -69,5 +88,5 @@ export const apiSlice = createApi({
 });
 
 export const { useGetPostsQuery, useDeletePostByIdMutation ,useRegisterUserMutation,
-  useLogoutUserMutation
+  useLogoutUserMutation,useGetCurrentUserQuery,useLoginUserMutation
 } = apiSlice;

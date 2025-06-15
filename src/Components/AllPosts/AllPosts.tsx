@@ -2,10 +2,13 @@
 import { usePost } from "@/app/hooks/usePosts"
 import Loading from "../Loading/Loading";
 import Link from "next/link";
+import useCurrentUser from "@/app/hooks/useCurrentUser";
 
 
 export const AllPosts = () => {
     const {posts,loading}=usePost()
+    const {currentUser}=useCurrentUser()
+  // console.log(currentUser);
 if(loading){
   return <Loading></Loading>
 }

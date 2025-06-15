@@ -1,9 +1,21 @@
+"use client"
 import { FaRegBell } from "react-icons/fa"
 import { Avatar } from "./Avatar"
 import Link from "next/link"
+import useCurrentUser from "@/app/hooks/useCurrentUser"
+import { useGetCurrentUserQuery } from "@/services/apiSlice"
+import { button } from "framer-motion/client"
 
 
 export const Navbar = () => {
+
+const { data } = useGetCurrentUserQuery(undefined);
+const currentUser = data?.user; // Properly typed as User | undefined
+if(currentUser){
+  console.log("User is in Logged in state")
+}else{
+  console.log("User is logout")
+}
   return (
     <div>
       <div className="navbar bg-base-100 shadow-sm">
@@ -15,18 +27,18 @@ export const Navbar = () => {
             <ul
               tabIndex={0}
               className="menu
-         space-y-1 text-lg menu-sm
+         space-y-1 text-base font-normal
           dropdown-content bg-base-100
-           rounded-box z-1 mt-3 w-52 p-2 shadow">
+           rounded-box z-1 mt-3 w-52 p-4 shadow">
 
               <Link href={'/'}>
-                <li>Home</li>
+                <li className="hover:underline">Home</li>
               </Link>
               <Link href={'/auth/register'}>
-                <li>Register</li>
+                <li className="hover:underline">Register</li>
               </Link>
               <Link href={'/auth/login'}>
-                <li>Login</li>
+                <li className="hover:underline">Login</li>
               </Link>
 
             </ul>
@@ -41,17 +53,24 @@ export const Navbar = () => {
 
 
           <div className="flex items-center md:space-x-2">
+             <p className="text-2xl">
+              <FaRegBell />
+            </p>
             <Link href={'/createnewpost'}>
               <button className="btn  btn-outline btn-primary hidden md:block">
 
                 Create a Post</button>
             </Link>
 
-            <p className="text-2xl">
-              <FaRegBell />
-            </p>
-
-            <Avatar />
+           
+{
+  currentUser ?   <Avatar />
+  :
+  <Link href={"/auth/login"}>
+  <button className="btn btn-primary">Sign In</button>
+  </Link>
+}
+          
           </div>
 
 

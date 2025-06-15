@@ -32,16 +32,12 @@ type User = {
           if (error.response?.status === 401) {
           // Expected: user not logged in or token expired
           console.warn("No active session. Proceeding as guest.");
-          setCurrentUser(null); // optional: fallback to guest
+          setCurrentUser(null); 
         } else {
           console.error("Error fetching user:", error);
         }
       }
-     
-       
-      
-        
-
+    
     }
 
     fetchCurrentuser()

@@ -1,17 +1,32 @@
 "use client"
 import { useLogin } from "@/app/hooks/useAuth";
+import { useLoginUserMutation } from "@/services/apiSlice";
 import { useState } from "react";
-
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
  const Login = () => {
-      const { loginUser,loading } = useLogin();
+      // const { loginUser,loading } = useLogin();
+       const [loginUser, { isLoading }] = useLoginUserMutation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+   const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit =async (e: React.FormEvent) => {
     console.log("Submit button hit");
     e.preventDefault();
     console.log({ email, password });
-    loginUser({ email, password })
+    // loginUser({ email, password })
+
+    try {
+       const response = await loginUser({ email, password }).unwrap();
+        router.push("/"); 
+    } catch (error) {
+     Swal.fire({
+        icon: "error",
+        title: "Login Failed",
+       
+      });
+    }
    
   };
   return (
@@ -54,7 +69,7 @@ import { useState } from "react";
             </div>
 
             <button type="submit"  className="btn btn-primary w-full">
-               {loading ? "Logging in..." : "Login"}
+               {isLoading ? "Logging in..." : "Login"}
             </button>
           </form>
 
