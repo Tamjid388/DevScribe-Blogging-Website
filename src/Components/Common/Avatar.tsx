@@ -66,7 +66,7 @@ console.log(currentUser?.user?.username);
             </li>
 
             <li>
- <Link href="">
+ <Link href="/profile">
                 Profile
               </Link>
 

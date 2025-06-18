@@ -6,8 +6,8 @@ export default function DashboardLayout({
 }: {
     children: React.ReactNode
 }) {
-    return <section>
-        <h1>Dashboard</h1>
+    return <section className="my-12">
+       
         <Stats />
         <hr className="mt-6" />
 

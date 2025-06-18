@@ -31,8 +31,11 @@ export default function RootLayout({
       >
         
         <ReduxProvider>
+          <nav className="bg-white">
+            <Navbar />
+          </nav>
 <main className="container mx-auto ">
-          <Navbar />
+          
           <section>{children}</section>
         </main>
         </ReduxProvider>

@@ -43,8 +43,12 @@ console.log("File size:", file?.size);
 
         // Generate optimized URL
         const optimizeUrl = cloudinary.url((result as any).public_id, {
-            fetch_format: 'auto',
-            quality: 'auto',
+              width: 900,
+  height: 500,
+  crop: 'fill',        // Scales and crops to exact size
+  gravity: 'auto',     // Focus on main subject
+  quality: 'auto',     // Adjusts quality for performance
+  fetch_format: 'auto'
         });
 
         // Generate auto-crop URL
@@ -55,11 +59,24 @@ console.log("File size:", file?.size);
             height: 500,
         });
 
+
+const avatarUrl =  cloudinary.url((result as any).public_id, {
+   width: 200,
+  height: 200,
+  crop: 'fill',     // fill crops and scales the image to fit box exactly
+  gravity: 'face',  // focus on face
+  radius: 'max',
+  quality: 'auto',
+  fetch_format: 'auto',
+});
+
+
         return NextResponse.json({
             success: true,
             original: (result as any).secure_url,
             optimizeUrl,
             autoCropUrl,
+            avatarUrl
         });
 
 

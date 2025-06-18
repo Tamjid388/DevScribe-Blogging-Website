@@ -3,6 +3,7 @@ import { usePost } from "@/app/hooks/usePosts"
 import Loading from "../Loading/Loading";
 import Link from "next/link";
 import useCurrentUser from "@/app/hooks/useCurrentUser";
+import TerminalLoader from "@/app/postdetails/[slug]/TerminalLoader";
 
 
 export const AllPosts = () => {
@@ -10,7 +11,7 @@ export const AllPosts = () => {
     const {currentUser}=useCurrentUser()
   // console.log(currentUser);
 if(loading){
-  return <Loading></Loading>
+  return <TerminalLoader/>
 }
     // console.log(posts);
   return (

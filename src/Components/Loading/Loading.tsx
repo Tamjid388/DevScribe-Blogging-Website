@@ -1,34 +1,88 @@
 "use client";
 
-import { BookOpen } from "lucide-react"; // optional, nice icon
+import { Code, Terminal } from "lucide-react";
 import { motion } from "framer-motion";
 
 const Loading = () => {
   return (
-    <div className="min-h-screen flex flex-col items-center
-     justify-center ">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-white">
       <motion.div
-        className="flex items-center space-x-3"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6 }}
+        className="flex flex-col items-center"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}  // Reduced from 0.5
       >
-        <BookOpen className="w-10 h-10 text-blue-700 animate-pulse" />
-        <h1 className="text-3xl font-extrabold text-gray-800 tracking-wide">
+        <motion.div
+          className="relative"
+          animate={{
+            scale: [1, 1.03, 1],  // Reduced scale effect
+          }}
+          transition={{
+            repeat: Infinity,
+            repeatType: "reverse",
+            duration: 1.2,  // Faster animation
+            ease: "easeInOut",
+          }}
+        >
+          <Terminal className="w-10 h-10 text-blue-600" />  // Slightly smaller icon
+          <motion.div 
+            className="absolute -bottom-1 -right-1 bg-blue-100 rounded-full p-1"
+            animate={{ scale: [1, 1.1, 1] }}  // Reduced scale
+            transition={{
+              repeat: Infinity,
+              duration: 1,  // Faster animation
+              ease: "easeInOut",
+            }}
+          >
+            <Code className="w-3 h-3 text-blue-600" />  // Smaller code icon
+          </motion.div>
+        </motion.div>
+
+        <motion.h1
+          className="mt-4 text-2xl font-bold text-gray-800"  // Smaller text
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.1, duration: 0.3 }}  // Reduced delay and duration
+        >
           Devscribe
-        </h1>
+        </motion.h1>
       </motion.div>
 
       <motion.div
-        className="mt-6 w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"
-        initial={{ rotate: 0 }}
-        animate={{ rotate: 360 }}
-        transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-      />
+        className="mt-6 relative w-56"  // Smaller width
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2, duration: 0.3 }}  // Reduced delay
+      >
+        <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">  // Thinner bar
+          <motion.div
+            className="h-full bg-blue-500"
+            initial={{ width: 0 }}
+            animate={{ width: "100%" }}
+            transition={{
+              duration: 1.2,  // Faster loading animation
+              repeat: Infinity,
+              repeatType: "reverse",
+              ease: "easeInOut",
+            }}
+          />
+        </div>
+      </motion.div>
 
-      <p className="mt-4 text-gray-600 font-medium text-sm animate-pulse">
-      Loading Devscribe content...
-      </p>
+      <motion.p
+        className="mt-3 text-gray-600 font-medium text-xs"  // Smaller text
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.3, duration: 0.3 }}  // Reduced delay
+      >
+        <motion.span
+          animate={{ opacity: [0.9, 1, 0.9] }}  // Less pronounced pulse
+          transition={{ repeat: Infinity, duration: 1 }}  // Faster pulse
+          className="inline-block"
+        >
+          Loading content...
+        </motion.span>
+      </motion.p>
     </div>
   );
 };
