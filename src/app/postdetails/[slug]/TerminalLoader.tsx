@@ -27,7 +27,7 @@ export default function TerminalLoader() {
       <div className="w-3 h-3 rounded-full bg-red-400"></div>
       <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
       <div className="w-3 h-3 rounded-full bg-green-400"></div>
-      <span className="text-gray-600 ml-2 text-sm">devscrbe-loader</span>
+      <span className="text-gray-600 ml-2 text-sm">Devscribe-loader</span>
     </div>
     
     <div className="text-blue-600 mb-1">$ loading post...</div>

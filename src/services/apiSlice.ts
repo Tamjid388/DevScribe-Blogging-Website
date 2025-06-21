@@ -44,7 +44,7 @@ export const apiSlice = createApi({
         method: 'POST',
         body: credentials,
       }),
-      invalidatesTags: ['User'], // Invalidate user data on login
+      invalidatesTags: ['User'], 
     }),
 
     
@@ -54,7 +54,7 @@ export const apiSlice = createApi({
         url: 'logout',
         method: 'GET',
       }),
-      invalidatesTags: ['User'] // Invalidates user-related cached data
+      invalidatesTags: ['User'] 
     }),
 
     // Get CurrentUser
@@ -73,6 +73,15 @@ export const apiSlice = createApi({
       providesTags: ["AllPosts"]
     }),
 
+  //  Get A PostDetail By Id
+    getPostDetails:builder.query(
+      {
+        query:(id)=>`postdetails/${id}`
+      }
+    ),
+
+
+
     // For deleting a post
     deletePostById: builder.mutation({
       query: (id) => ({
@@ -80,13 +89,43 @@ export const apiSlice = createApi({
         method: 'DELETE'
       }),
       invalidatesTags: ["AllPosts"]
+    }),
+
+    // Text Summarizer
+
+
+   aiTextSummarizer:builder.mutation({
+    query:(body)=>({
+      url:'aitextsummarizer',
+      method:'POST',
+      body
     })
+   }),
+
+   addComment:builder.mutation({
+    query:(commentPayload)=>({
+      url:'comments',
+      method:"POST",
+      body:commentPayload
+    })
+   })
 
 
-    // Add more endpoints here...
+
+  //  Add Endpoints From Here
   }),
 });
 
-export const { useGetPostsQuery, useDeletePostByIdMutation ,useRegisterUserMutation,
-  useLogoutUserMutation,useGetCurrentUserQuery,useLoginUserMutation
+export const { 
+
+  useGetPostsQuery,
+  useDeletePostByIdMutation ,
+  useRegisterUserMutation,
+  useLogoutUserMutation,
+  useGetCurrentUserQuery,
+  useLoginUserMutation,
+  useGetPostDetailsQuery,
+  useAiTextSummarizerMutation,
+  useAddCommentMutation
+
 } = apiSlice;

@@ -24,11 +24,12 @@ export async function POST(req: NextRequest) {
         }
 
         const commentCollection = await connectToDB("comments")
-        const result = commentCollection.insertOne(comment)
+        const result =await commentCollection.insertOne(comment)
 
         return NextResponse.json({
             massege: "Comment created succesfully",
-            success: true
+            success: true,
+             insertedId: result.insertedId,
         })
 
     } catch (error) {

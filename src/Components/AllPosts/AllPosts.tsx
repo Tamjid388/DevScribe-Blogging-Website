@@ -28,9 +28,9 @@ if(loading){
               <h2 className="card-title">{post.title}</h2>
               <p>{post?.content?.substring(0, 100)}...</p>
               <p className="text-sm text-gray-500">By {post.author}</p>
-              <div className="card-actions justify-end">
+              <div className="card-actions justify-start">
                <Link href={`/postdetails/${post._id}`}>
-                <button className="btn btn-primary">Read More</button>
+                <button className="btn text-white bg-black">Read More</button>
                </Link>
               </div>
             </div>

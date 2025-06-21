@@ -7,6 +7,8 @@ export async function GET() {
 
     const collection = await connectToDB("allPosts");
     const result = await collection.find().toArray()
+  
+
     return NextResponse.json({ result });
 
 }
