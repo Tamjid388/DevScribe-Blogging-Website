@@ -18,7 +18,7 @@ export const useLogin=()=>{
 
 
     try {
-      const response = await axios.post("/Api/signinuser", {
+      const response = await axios.post("/api/signinuser", {
         email,
         password,
       });

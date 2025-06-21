@@ -35,7 +35,7 @@ export const UpdateProfilePicture = () => {
         formdata.append("file", selectedImage);
       }
 
-      const response = await axios.post('/Api/imageupload', formdata, {
+      const response = await axios.post('/api/imageupload', formdata, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

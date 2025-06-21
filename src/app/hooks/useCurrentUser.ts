@@ -19,7 +19,7 @@ type User = {
      useEffect(()=>{
     const fetchCurrentuser=async()=>{
       try {
-         const response=await axios.get("/Api/currentuser",
+         const response=await axios.get("/api/currentuser",
           {
           withCredentials:true
           }

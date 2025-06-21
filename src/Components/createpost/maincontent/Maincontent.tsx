@@ -56,7 +56,7 @@ console.log(currentUser);
     }
 
 
-    axios.post("Api/createpost", blogDatas)
+    axios.post("api/createpost", blogDatas)
       .then(res => {
         console.log("Post created:", res.data);
         Swal.fire({

@@ -24,7 +24,7 @@ export function usePost(){
          const fetchPosts=async()=>{
           try {
         setLoading(true); // Start loading
-        const response = await axios.get("/Api/createpost");
+        const response = await axios.get("/api/createpost");
         setPosts(response.data.result);
       } catch (err: any) {
        

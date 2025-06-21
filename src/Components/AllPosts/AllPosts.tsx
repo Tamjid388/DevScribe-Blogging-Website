@@ -15,7 +15,7 @@ if(loading){
 }
     // console.log(posts);
   return (
-   <div className="grid md:grid-cols-3 gap-4 p-4 ">
+   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 ">
       {posts.length === 0 ? (
         <p>Loading posts...</p>
       ) : (
