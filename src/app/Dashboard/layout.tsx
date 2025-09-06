@@ -6,7 +6,7 @@ export default function DashboardLayout({
 }: {
     children: React.ReactNode
 }) {
-    return <section className="my-12 border">
+    return <section className="my-12 ">
        
         <Stats />
         <hr className="mt-6" />

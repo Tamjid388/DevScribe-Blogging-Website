@@ -30,9 +30,24 @@ import { useRouter } from "next/navigation";
     
   };
 
-  const handleDemoLogin =()=>{
+ const handleDemoLogin = async () => {
+  const demoEmail = "tamjidrazin01@gmail.com";
+  const demoPassword = "tamjidrazin01@gmail.com";            
 
+  setEmail(demoEmail);
+  setPassword(demoPassword);
+
+  try {
+    const response = await loginUser({ email: demoEmail, password: demoPassword }).unwrap();
+    router.push("/"); 
+  } catch (error) {
+    Swal.fire({
+      icon: "error",
+      title: "Login Failed",
+      text: "Something went wrong,Please Try Again.",
+    });
   }
+};
   return (
     <div>
          <div className="min-h-screen flex items-center justify-center bg-base-200">

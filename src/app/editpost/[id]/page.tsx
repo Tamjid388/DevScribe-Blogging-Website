@@ -1,11 +1,13 @@
 "use client"
 
+import EditPost from "@/actions/EditPost";
 import ImageUploader from "@/Components/ImageUploader/ImageUploader";
 import Loading from "@/Components/Loading/Loading";
 import { useGetPostDetailsQuery } from "@/services/apiSlice";
 import MDEditor from "@uiw/react-md-editor";
 import Image from "next/image";
 import { use, useEffect, useState } from "react"
+import Swal from "sweetalert2";
    type Type = string | undefined;
 export default function page({
     params,
@@ -17,52 +19,66 @@ export default function page({
   const {data:post,isLoading}=useGetPostDetailsQuery(id)
   const [title,setTitle]=useState<string>()
   const [value, setValue] = useState<Type>("");
+  const [alltags,setTags]=useState("");
   const [imageUrl, setImageUrl] = useState("");
-  console.log(post);
+
  
 useEffect(() => {
-        if (post?.title) {
-            setTitle(post.title)
-        }
-    }, [post])
+  if (!post) return;
 
-    useEffect(() => {
-        if (post?.content) {
-            setValue(post.content)
-        }
-    }, [post])
-    useEffect(() => {
-        if (post?.thumbnail
-) {
-            setImageUrl(post.thumbnail)
-        }
-    }, [post])
+  const { title, content, thumbnail,tags } = post;
+
+  if (title) setTitle(title);
+  if (content) setValue(content);
+  if (thumbnail) setImageUrl(thumbnail);
+  if (tags) setTags(tags.join(", "));
+}, [post]);
 
    const handleTitleChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
        setTitle(e.target.value)
    }
 
-       
+ const handletags=(e:React.ChangeEvent<HTMLInputElement>)=>{
+setTags(e.target.value)
+ }       
 
-        const handleChange=(val?: string)=>{
+    const handleChange=(val?: string)=>{
             setValue(val)
-        }
+    }
 
    // HandleForm
-const handleSubmit = async (e: React.FormEvent) => {
-e.preventDefault();
-const data={
-  title,
-  thumbnail:imageUrl,
-  content:value
-}   
-console.log(data);
+   const handleSubmit = async (e: React.FormEvent) => {
+     e.preventDefault();
+     const data={
+           title,
+          thumbnail:imageUrl,
+          content:value,
+          tags: alltags
+          .split(",")
+          .map((tag) => tag.trim())
+          .filter((tag) => tag.length > 0),
+      }   
+
+
+
+   const result = await EditPost(id, data);
+  if (result.modifiedCount > 0){
+          Swal.fire({
+        icon: "success",
+        title: "Updated!",
+        text: "Your blog has been updated successfully.",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+  } 
+
+
 
   };
 
      if(!post) return <Loading/>
   return (
-    <div className="h-full">
+    <div className="h-[100vh]">
        <h1 className='text-3xl my-6 font-bold '>Edit Post</h1>
 <form onSubmit={handleSubmit}>
       {/* title */}
@@ -98,7 +114,11 @@ console.log(data);
         <label className="text-xl font-bold">Tags</label>
         <input type="text"
         className="input my-4 w-full"
-        placeholder="" />
+        placeholder=""
+        value={alltags || ""
+        }
+        onChange={handletags}
+        />
       </div>
       {/* description */}
       <div data-color-mode="light" className="">
@@ -106,7 +126,7 @@ console.log(data);
 
         
       </div>
-      <button className="btn" type="submit">
+      <button className="btn my-4 btn-primary" type="submit">
         Update Blog
       </button>
 </form>
