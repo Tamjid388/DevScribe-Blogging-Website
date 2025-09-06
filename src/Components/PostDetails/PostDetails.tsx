@@ -3,6 +3,7 @@
 
 import TerminalLoader from "@/app/postdetails/[slug]/TerminalLoader";
 import { useGetPostDetailsQuery } from "@/services/apiSlice";
+import MDEditor from "@uiw/react-md-editor";
 type Post = {
   _id: string;
   title: string;
@@ -31,7 +32,14 @@ const PostDetails = ({post}:PostDetailsProps) => {
         </figure>
         <div className="card-body p-0 pt-8">
           <h2 className="card-title text-3xl font-bold mb-4">{post?.title}</h2>
-          <p className="text-xl text-gray-700 text-justify">{post?.content}</p>
+          <p className="text-xl text-gray-700 text-justify">
+            
+            {/* {post?.content} */}
+            </p>
+
+             <MDEditor.Markdown
+             className="bg-white"
+             source={post?.content} style={{ whiteSpace: 'pre-wrap',backgroundColor: "transparent",color:"black" }} />
           <p className="text-sm text-gray-600">
             <strong className="font-medium text-gray-800">Author:</strong>
              {post?.author}

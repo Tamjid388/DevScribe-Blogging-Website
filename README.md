@@ -6,7 +6,7 @@
 
 ## ✨ Features
 
-- 🧠 **AI Writing Assistant** (Powered by Gemini)
+- 🧠 **AI  AI Text Summarizer** (Powered by Gemini)
 - 📝 Markdown-based content editing
 - ⚡ Fast & optimized with Next.js 15 App Router
 - 🎨 Styled with TailwindCSS + DaisyUI

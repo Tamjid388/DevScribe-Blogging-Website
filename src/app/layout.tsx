@@ -37,7 +37,7 @@ export default function RootLayout({
           <nav className="bg-white">
             <Navbar />
           </nav>
-<main className="container mx-auto bg-base-300">
+<main className="container mx-auto ">
           
           <section>{children}</section>
         </main>

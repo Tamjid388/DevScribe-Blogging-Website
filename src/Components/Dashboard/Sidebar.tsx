@@ -9,7 +9,7 @@ import Link from "next/link"
     <Link href={'/Dashboard/Posts'}>Posts</Link>
     </li>
   <li className="border border-gray-200 bg-white">
-    <Link href={'/Dashboard/Posts'}>Comments</Link>
+    <Link href={'/profile'}>Edit Profile</Link>
     </li>
   <li className="border border-gray-200 bg-white">
     <Link href={'/Dashboard/Posts'}>Analytics</Link>

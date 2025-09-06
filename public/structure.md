@@ -1,3 +1,6 @@
+
+username,pass:tamjidrazin01@gmail.com
+
 project-root(src)/
 ├─ app/
 │  ├─ layout.tsx                  ← Root layout (Navbar, Footer)

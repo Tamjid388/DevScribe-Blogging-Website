@@ -1,5 +1,6 @@
 import { useDeletePostByIdMutation } from '@/services/apiSlice';
 import { Trash,SquarePen } from 'lucide-react'
+import Link from 'next/link';
 import React from 'react'
 import Swal from 'sweetalert2';
 type PostActionsProps = {
@@ -44,8 +45,12 @@ const handleDelete = async (id: string) => {
         className="btn btn-sm text-red-500 bg-red-50 tooltip"  data-tip="Delete">
            <Trash />
            </button>
-        <button className="btn btn-sm text-blue-600 bg-blue-50 tooltip"
+
+           <Link href={`/editpost/${id}`}>
+         <button className="btn btn-sm text-blue-600 bg-blue-50 tooltip"
          data-tip="Edit Post"> <SquarePen /></button>
+           </Link>
+      
     </div>
   )
 }

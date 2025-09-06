@@ -20,9 +20,9 @@ if(loading){
         <p>Loading posts...</p>
       ) : (
         posts.map((post:any) => (
-          <article key={post._id} className="card bg-base-100 shadow-sm ">
+          <article key={post._id} className="card bg-base-200 shadow-sm ">
             <figure className="h-[250px]">
-              <img className="h-full w-full object-cover" src={post.thumbnail} alt={post.title} />
+              <img className="h-full w-full object-cover" src={post.thumbnail ? post.thumbnail : "https://res.cloudinary.com/dto6ulc5n/image/upload/nestjs_stx2ht.jpg"} alt={post.title} />
             </figure>
             <div className="card-body">
               <h2 className="card-title">{post.title}</h2>

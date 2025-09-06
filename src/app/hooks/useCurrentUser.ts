@@ -24,7 +24,7 @@ type User = {
           withCredentials:true
           }
         )
-            console.log(response.data.user);
+            
       
           setCurrentUser(response.data.user)
         

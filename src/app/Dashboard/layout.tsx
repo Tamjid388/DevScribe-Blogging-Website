@@ -6,12 +6,12 @@ export default function DashboardLayout({
 }: {
     children: React.ReactNode
 }) {
-    return <section className="my-12">
+    return <section className="my-12 border">
        
         <Stats />
         <hr className="mt-6" />
 
-        <main className="grid grid-cols-12 py-12 gap-6">
+        <main className="grid grid-cols-12 py-12 gap-6 ">
             <div className="col-span-2">
                 <Sidebar />
             </div>

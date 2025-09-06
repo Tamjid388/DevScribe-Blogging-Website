@@ -47,7 +47,7 @@ const ImageUploader = ({ onUploadSuccess }: ImageUploaderProps) => {
   }
 
   return (
-    <div>
+    <div className="">
       <h1 className="font-semibold text-gray-500 mb-2">Upload An Image</h1>
       <input type="file"
         accept="image/*"

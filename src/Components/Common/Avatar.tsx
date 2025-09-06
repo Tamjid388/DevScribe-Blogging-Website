@@ -6,16 +6,16 @@ import Link from 'next/link'
 import React from 'react'
 import Swal from 'sweetalert2';
 import { useDispatch } from 'react-redux';
+import Image from 'next/image';
 
 export const Avatar = () => {
-  // const { currentUser } = useCurrentUser()
+ 
 
   const [logoutUser, { isLoading }] = useLogoutUserMutation();
   const router = useRouter();
    const dispatch = useDispatch();
 const {data: currentUser ,refetch}=useGetCurrentUserQuery(undefined)
-console.log(currentUser)
-console.log(currentUser?.user?.username);
+
 
  const handleLogout = async () => {
   try {
@@ -42,8 +42,9 @@ console.log(currentUser?.user?.username);
           <div tabIndex={0} role="button"
             className="btn btn-ghost btn-circle avatar">
             <div className=" rounded-full">
-              <img className=''
-                src="https://img.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg?ga=GA1.1.1512812655.1735219157&semt=ais_hybrid&w=740"
+              <Image className=''
+              width={32} height={32}
+                src="/Avatar.png"
                 alt="avatarimg" />
             </div>
           </div>
@@ -66,7 +67,7 @@ console.log(currentUser?.user?.username);
             </li>
 
             <li>
- <Link href="/profile">
+ <Link href="/myprofilepreview">
                 Profile
               </Link>
 

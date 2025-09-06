@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
  const Login = () => {
       // const { loginUser,loading } = useLogin();
-       const [loginUser, { isLoading }] = useLoginUserMutation();
+  const [loginUser, { isLoading }] = useLoginUserMutation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
    const router = useRouter();
@@ -27,8 +27,12 @@ import { useRouter } from "next/navigation";
        
       });
     }
-   
+    
   };
+
+  const handleDemoLogin =()=>{
+
+  }
   return (
     <div>
          <div className="min-h-screen flex items-center justify-center bg-base-200">
@@ -70,6 +74,16 @@ import { useRouter } from "next/navigation";
 
             <button type="submit"  className="btn btn-primary w-full">
                {isLoading ? "Logging in..." : "Login"}
+            </button>
+
+
+                {/* Demo Login Button */}
+            <button
+              type="button"
+              onClick={handleDemoLogin}
+              className="btn btn-outline w-full mt-2"
+            >
+             Use Sample Account
             </button>
           </form>
 

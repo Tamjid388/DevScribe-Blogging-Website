@@ -21,7 +21,7 @@ type GetPostsResponse = {
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
-    baseUrl:process.env.NEXT_PUBLIC_URL || 'http://localhost:3000/api/' 
+    baseUrl:process.env.NEXT_PUBLIC_URL! 
   }),
   tagTypes: ["AllPosts",'User'],
   endpoints: (builder) => ({
@@ -108,8 +108,18 @@ export const apiSlice = createApi({
       method:"POST",
       body:commentPayload
     })
-   })
+   }),
 
+  //  Update Profile
+
+ updateProfile:builder.mutation({
+    query:(profilePayload)=>({
+      url:'editprofile',
+      method:"POST",
+      body:profilePayload
+    }),
+    invalidatesTags:["User"]
+   })
 
 
   //  Add Endpoints From Here
@@ -126,6 +136,7 @@ export const {
   useLoginUserMutation,
   useGetPostDetailsQuery,
   useAiTextSummarizerMutation,
-  useAddCommentMutation
+  useAddCommentMutation,
+  useUpdateProfileMutation
 
 } = apiSlice;

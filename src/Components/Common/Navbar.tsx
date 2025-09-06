@@ -11,11 +11,7 @@ export const Navbar = () => {
 
 const { data } = useGetCurrentUserQuery(undefined);
 const currentUser = data?.user; // Properly typed as User | undefined
-if(currentUser){
-  console.log("User is in Logged in state")
-}else{
-  console.log("User is logout")
-}
+
   return (
     <div>
       <div className="navbar bg-base-100  container mx-auto">
