@@ -6,17 +6,16 @@ import Loading from "@/Components/Loading/Loading";
 import { useGetPostDetailsQuery } from "@/services/apiSlice";
 import MDEditor from "@uiw/react-md-editor";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 import { use, useEffect, useState } from "react"
 import Swal from "sweetalert2";
    type Type = string | undefined;
-export default function page({
-    params,
-}:{
-    params: Promise<{ id: string }>
-}) {
-  
-  const {id}=use(params)
-  const {data:post,isLoading}=useGetPostDetailsQuery(id)
+export default function Page() {
+  const params=useParams()
+  const id =params.id as string
+  console.log(id);
+  // const {id}=use(params)
+  const {data:post}=useGetPostDetailsQuery(id)
   const [title,setTitle]=useState<string>()
   const [value, setValue] = useState<Type>("");
   const [alltags,setTags]=useState("");
