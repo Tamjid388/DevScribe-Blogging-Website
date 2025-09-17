@@ -17,7 +17,7 @@ export async function connectToDB(collectionName:string) {
   if (!db) {
     await client.connect();
     db = client.db(process.env.MONGODB_DB); 
-    console.log("✅ Connected to MongoDB");
+    
   }
 
   return db.collection(collectionName);

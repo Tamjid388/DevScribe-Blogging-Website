@@ -1,7 +1,6 @@
 // src/services/apiSlice.ts
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { baseApi } from "./baseapi";
 
 // Define your types here
 type Post = {
@@ -18,125 +17,104 @@ type Post = {
 type GetPostsResponse = {
   result: Post[];
 };
-export const apiSlice = createApi({
-  reducerPath: 'api',
-  baseQuery: fetchBaseQuery({
-    baseUrl:process.env.NEXT_PUBLIC_URL! 
-  }),
-  tagTypes: ["AllPosts",'User'],
-  endpoints: (builder) => ({
-    
 
+export const apiSlice = baseApi.injectEndpoints({
+  // reducerPath: "api",
+  // baseQuery: fetchBaseQuery({
+  //   baseUrl: process.env.NEXT_PUBLIC_URL!,
+  // }),
+  // tagTypes: ["AllPosts", "User"],
+
+  endpoints: (builder) => ({
     // User Regestration Endpoint
-    registerUser:builder.mutation({
-    query:(userData)=>(
-      {
-        url:'createuser',
-        method:"POST",
-        body:userData
-      }
-    )
+    registerUser: builder.mutation({
+      query: (userData) => ({
+        url: "createuser",
+        method: "POST",
+        body: userData,
+      }),
     }),
 
-      loginUser: builder.mutation({
+    loginUser: builder.mutation({
       query: (credentials) => ({
-        url: 'signinuser',
-        method: 'POST',
+        url: "signinuser",
+        method: "POST",
         body: credentials,
       }),
-      invalidatesTags: ['User'], 
+      invalidatesTags: ["User"],
     }),
 
-    
     // User Logout
-    logoutUser: builder.mutation<any,void>({
+    logoutUser: builder.mutation<any, void>({
       query: () => ({
-        url: 'logout',
-        method: 'GET',
+        url: "logout",
+        method: "GET",
       }),
-      invalidatesTags: ['User'] 
+      invalidatesTags: ["User"],
     }),
 
     // Get CurrentUser
 
     getCurrentUser: builder.query({
-      query: () => "/currentuser", 
-      providesTags: ["User"], 
-    
+      query: () => "/currentuser",
+      providesTags: ["User"],
     }),
-
-
 
     // Get All  Post endpoint
     getPosts: builder.query<GetPostsResponse, void>({
-      query: () => 'createpost',
-      providesTags: ["AllPosts"]
+      query: () => "createpost",
+      providesTags: ["AllPosts"],
     }),
 
-  //  Get A PostDetail By Id
-    getPostDetails:builder.query(
-      {
-        query:(id)=>`postdetails/${id}`
-      }
-    ),
-
-
+    //  Get A PostDetail By Id
+    getPostDetails: builder.query({
+      query: (id) => `postdetails/${id}`,
+    }),
 
     // For deleting a post
     deletePostById: builder.mutation({
       query: (id) => ({
         url: `postdetails/${id}`,
-        method: 'DELETE'
+        method: "DELETE",
       }),
-      invalidatesTags: ["AllPosts"]
+      invalidatesTags: ["AllPosts"],
     }),
 
     // Text Summarizer
 
-
-   aiTextSummarizer:builder.mutation({
-    query:(body)=>({
-      url:'aitextsummarizer',
-      method:'POST',
-      body
-    })
-   }),
-
-   addComment:builder.mutation({
-    query:(commentPayload)=>({
-      url:'comments',
-      method:"POST",
-      body:commentPayload
-    })
-   }),
-
-  //  Update Profile
-
- updateProfile:builder.mutation({
-    query:(profilePayload)=>({
-      url:'editprofile',
-      method:"POST",
-      body:profilePayload
+    aiTextSummarizer: builder.mutation({
+      query: (body) => ({
+        url: "aitextsummarizer",
+        method: "POST",
+        body,
+      }),
     }),
-    invalidatesTags:["User"]
-   })
 
 
-  //  Add Endpoints From Here
+    //  Update Profile
+
+    updateProfile: builder.mutation({
+      query: (profilePayload) => ({
+        url: "editprofile",
+        method: "POST",
+        body: profilePayload,
+      }),
+      invalidatesTags: ["User"],
+    }),
+
+    //  Add Endpoints From Here
   }),
 });
 
-export const { 
-
+export const {
   useGetPostsQuery,
-  useDeletePostByIdMutation ,
+  useDeletePostByIdMutation,
   useRegisterUserMutation,
   useLogoutUserMutation,
   useGetCurrentUserQuery,
   useLoginUserMutation,
   useGetPostDetailsQuery,
   useAiTextSummarizerMutation,
-  useAddCommentMutation,
-  useUpdateProfileMutation
-
+ 
+  useUpdateProfileMutation,
 } = apiSlice;

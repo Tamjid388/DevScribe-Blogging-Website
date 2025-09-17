@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 // GET a postdetails by ID
 export async function GET(req:NextRequest,{params}:{params:Promise<{postid:string}>}){
     const {postid}= await params
-    console.log(postid)
+   
 
     try {
         const allPostsCollection=await connectToDB('allPosts')

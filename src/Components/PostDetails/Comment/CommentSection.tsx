@@ -1,81 +1,125 @@
-import React, { useState } from 'react'
-import { useAddCommentMutation, useGetCurrentUserQuery } from "@/services/apiSlice";
-import Swal from 'sweetalert2';
+import React, { useState } from "react";
+import { useGetCurrentUserQuery } from "@/services/apiSlice";
+import Swal from "sweetalert2";
+import {
+  useAddCommentMutation,
+  useGetCommentsByPostIdQuery,
+} from "@/services/commentApiSlice";
+import LoadingSpinner from "@/Components/Loading/LoadingSpinner";
+import { Comment, CommentPayload } from "@/types/commentTypes";
+import { Ellipsis } from "lucide-react";
+import CommentActions from "./CommentActions";
 
-interface CommentPayload{
-  username:string,
-  content:string ,
-  postId:string,
-  
-
-
-}
-
-export default function CommentSection({postId}:{postId:string}) {
-  const { data: user, isLoading } = useGetCurrentUserQuery(undefined)
-const [addComment, { isError }] = useAddCommentMutation();
+export default function CommentSection({ postId }: { postId: string }) {
+  const { data } = useGetCurrentUserQuery(undefined);
+  const {
+    data: allComments,
+    isLoading: loadingComments,
+    isError,
+    refetch,
+  } = useGetCommentsByPostIdQuery(postId);
+  const [addComment, { isLoading }] = useAddCommentMutation();
 
   const [comment, setComment] = useState<string>("");
- 
-  const handleSubmit =async () => {
-   
-   if (!user) {
+
+  const handleSubmit = async () => {
+    if (!data) {
       Swal.fire("Error", "You must be logged in to comment", "error");
       return;
     }
+    if (!comment) {
+      Swal.fire("Error", "Comment cannot be empty", "error");
+      return;
+    }
 
-console.log(user.username);
-console.log("Button Hit");
-const payload:CommentPayload={
-  username:user.username,
-  content:comment,
-  postId:postId,
+    const payload: CommentPayload = {
+      username: data.user.username,
+      content: comment,
+      postId: postId,
+      userId: data.user.id,
+      updatedAt: null,
+    };
+    console.log(payload);
 
-}
-console.log(payload);
-
-try {
-const response= await addComment(payload).unwrap();
-  Swal.fire("Comment Added")
-  setComment("");
-  console.log(response);
-} catch (error) {
-  Swal.fire("Failed to add comment")
-  console.log(error);
-}
-
-  }
+    try {
+      await addComment(payload).unwrap();
+      Swal.fire("Comment Added");
+      setComment("");
+    } catch (err: any) {
+      Swal.fire("Failed to add comment");
+      console.log(err);
+    }
+  };
   return (
     <div id="comments">
-      <h1 className='text-3xl font-bold my-4'>Comments</h1>
+      <div className="my-4">
+        <h1 className="text-3xl font-semibold ">Leave a reply:</h1>
+        <p className=" font-semibold opacity-70 ">
+          Your email address will not be published.
+        </p>
+      </div>
       <div className="flex space-x-2">
         {/* Avatar */}
-        <div className="bg-neutral text-neutral-content w-9 h-9 rounded-full flex justify-center items-center">
+        {/* <div className="bg-neutral text-neutral-content w-9 h-9 rounded-full flex justify-center items-center">
           <span className="text-xl text-white">TA</span>
-        </div>
+        </div> */}
 
-        <div className="bg-white w-full flex flex-col gap-3">
-          <textarea placeholder="Add to the discussion"
-            className="textarea textarea-primary "
-             value={comment} 
+        <div className=" w-full flex flex-col gap-3">
+          <textarea
+            placeholder="Add to the discussion"
+            className="textarea  w-full"
+            value={comment}
             onChange={(e) => setComment(e.target.value)}
-          >
-
-          </textarea>
+          ></textarea>
           <button
-          type="button" disabled={!user} onClick={handleSubmit} className="btn btn-primary self-start">
-            Submit
+            type="button"
+            disabled={!data}
+            onClick={handleSubmit}
+            className="btn btn-outline self-start"
+          >
+            {isLoading ? <LoadingSpinner /> : "Submit"}
           </button>
         </div>
-
       </div>
+      {/* All Comments */}
+      <div className="mt-4 space-y-2">
+        {loadingComments && <LoadingSpinner />}
+        {isError && <p>Failed to load comments.</p>}
+        {!loadingComments &&
+          allComments &&
+          allComments.comments.length === 0 && (
+            <p>No comments yet. Be the first to comment!</p>
+          )}
+        {!loadingComments &&
+          allComments &&
+          allComments.comments.length > 0 &&
+          allComments.comments.map((comment: Comment) => (
+            <div
+              key={comment._id}
+              className="shadow-xs shadow-gray-300
+             hover:shadow-md  transition-shadow duration-300 py-2 flex justify-between"
+            >
+             <div>
+               <p className="font-semibold">{comment.username}</p>{" "}
+              {/* username available? */}
+              <p>{comment.content}</p>
+              <small className="text-gray-500">
+                {comment.updatedAt
+                  ? new Date(comment.updatedAt).toLocaleString()
+                  : new Date(comment.createdAt).toLocaleString()}
+              </small>
+             </div>
+             {/* Actions */}
+             <div className="mx-2">
+            
+   
+<CommentActions commentid={comment._id}/>
+             
+             </div>
 
+            </div>
+          ))}
+      </div>
     </div>
-  )
+  );
 }
-// let name=user?.username
-// const initials = name?.split(" ")
-// .map(word:string => word[0])
-// .join("")
-// .toUpperCase();
-// console.log(initials);

@@ -17,16 +17,16 @@ const Maincontent = () => {
 
   const date=new Date()
   const PublishDate=moment(date).format("MMM Do YY"); 
-  console.log(PublishDate);
+
 
 const {currentUser}=useCurrentUser()
-console.log(currentUser);
+
 
 
 
 
   const handleChange = (val: string | undefined) => {
-    console.log("Changed:", val);
+    
     setValue(val);
   };
 
@@ -41,7 +41,7 @@ console.log(currentUser);
 
   const handleImageUpload = (url: string) => {
     setImageUrl(url)
-    console.log("Image URL received in parent:", url);
+   
   }
 
 
@@ -58,7 +58,7 @@ console.log(currentUser);
 
     axios.post("api/createpost", blogDatas)
       .then(res => {
-        console.log("Post created:", res.data);
+       
         Swal.fire({
     title: "Blog Posted!",
         text: "Your blog has been successfully published.",
@@ -67,7 +67,7 @@ console.log(currentUser);
 });
       })
       .catch(err => {
-        console.error("Error creating post:", err);
+       
         Swal.fire({
         title: "Failed!",
         text: "There was an error posting your blog.",

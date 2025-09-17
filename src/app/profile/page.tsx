@@ -5,7 +5,7 @@ import { UpdateProfilePicture } from "@/Components/Profile/UpdateProfilePicture"
 
 export default function Profile() {
   return (
-    <div className="container mx-auto grid grid-cols-4 space-x-4 ">
+    <div className="h-dvh container mx-auto grid grid-cols-4 space-x-4 ">
       <div className="col-span-1 flex flex-col bg-white max-h-fit px-4 py-8 mt-6">
        <h2 className="text-xl font-semibold mb-3">Profile Picture</h2>
           <UpdateProfilePicture/>

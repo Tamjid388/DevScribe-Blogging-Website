@@ -1,8 +1,13 @@
 "use client";
 
+import { UserProfile } from "@/actions/action.userProfile";
 import useCurrentUser from "@/app/hooks/useCurrentUser";
 import TerminalLoader from "@/app/postdetails/[slug]/TerminalLoader";
-import { useGetCurrentUserQuery, useUpdateProfileMutation } from "@/services/apiSlice";
+import {
+  useGetCurrentUserQuery,
+  useUpdateProfileMutation,
+} from "@/services/apiSlice";
+import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css"; // basic styling
@@ -27,35 +32,80 @@ type Inputs = {
 export default function EditProfileForm() {
   const {
     register,
-    handleSubmit,
+    handleSubmit, reset,
     formState: { errors },
-  } = useForm<Inputs>();
- const { data: user ,isLoading:userLoading} = useGetCurrentUserQuery(undefined);
+  } = useForm<Inputs>({
+  defaultValues: {
+    name: "",
+    email: "",
+    bio: "",
+    tags: "",
+    location: "",
+    skills: "",
+    profession: "",
+    birthdate: "",
+    gender: "",
+    languagePreference: "",
+    facebook: "",
+    github: "",
+    linkedin: "",
+  },
+});
+  const { data: userinfo, isLoading: userLoading } =
+    useGetCurrentUserQuery(undefined);
+const [userDetails, setUserDetails] = useState<any>(null);
+const userId = userinfo?.user?.id;
+
+useEffect(()=>{
+  if(userId){
+UserProfile(userId)
+.then(setUserDetails).catch(console.error);
+  }
+},[userId])
 
 
- const [updateProfile, { isLoading, isError, error, isSuccess }] =useUpdateProfileMutation()
-  const onSubmit: SubmitHandler<Inputs> = async(data) => {
+useEffect(() => {
+  if (userDetails) {
+    reset({
+      name: userDetails.name || "",
+      email: userDetails.email || "",
+      bio: userDetails.bio || "",
+      tags: userDetails.tags?.join(",") || "",
+      location: userDetails.location || "",
+      skills: userDetails.skills?.join(",") || "",
+      profession: userDetails.profession || "",
+      birthdate: userDetails.birthdate || "",
+      gender: userDetails.gender || "",
+      languagePreference: userDetails.languagePreference || "",
+      facebook: userDetails.facebook || "",
+      github: userDetails.github || "",
+      linkedin: userDetails.linkedin || "",
+    });
+  }
+}, [userDetails, reset]);
+
+
+  const [updateProfile, { isLoading, isError, error, isSuccess }] =
+    useUpdateProfileMutation();
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const formattedData = {
       ...data,
       tags: data.tags.split(",").map((tag) => tag.trim()),
       skills: data.skills.split(",").map((skill) => skill.trim()),
     };
-   
-    
-try {
-  const response = await updateProfile(formattedData).unwrap();
-  console.log("Update success:", response);
-  Swal.fire("Profile updated successfully!");
-} catch (err) {
-  console.error("Update failed:", err);
-  Swal.fire("Failed to update profile.");
-}
 
-    
+    try {
+      const response = await updateProfile(formattedData).unwrap();
+
+      Swal.fire("Profile updated successfully!");
+    } catch (err) {
+      Swal.fire("Failed to update profile.");
+    }
   };
 
-  if(userLoading){
-    return <TerminalLoader/>
+  if (userLoading) {
+    return <TerminalLoader />;
   }
 
   return (
@@ -79,8 +129,7 @@ try {
                   className="w-full border px-3 py-2 rounded"
                   {...register("name", { required: "Name is required" })}
                   placeholder="Enter your name"
-                  defaultValue={user?.user?.username}
-                 
+                  defaultValue={ userinfo?.user?.username}
                 />
                 {errors.name && (
                   <p className="text-red-500 text-sm">{errors.name.message}</p>
@@ -93,9 +142,8 @@ try {
                 <input
                   className="w-full border px-3 py-2 rounded"
                   type="email"
-                  defaultValue={user?.user?.email}
+                  defaultValue={userDetails?.email}
                   readOnly
-                
                   {...register("email", {
                     required: "Email is required",
                     pattern: {
@@ -125,18 +173,26 @@ try {
                 <label className="block mb-1 font-medium">Gender</label>
                 <div className="flex gap-4">
                   <label>
-                    <input type="radio" value="male" {...register("gender")} /> Male
+                    <input type="radio" value="male"
+                     {...register("gender")}
+                     />{" "}
+                    Male
                   </label>
                   <label>
                     <input
                       type="radio"
                       value="female"
                       {...register("gender")}
+                    
                     />{" "}
                     Female
                   </label>
                   <label>
-                    <input type="radio" value="other" {...register("gender")} /> Other
+                    <input type="radio" value="other" 
+                    {...register("gender")}
+                    
+                    />{" "}
+                    Other
                   </label>
                 </div>
               </div>
@@ -231,7 +287,9 @@ try {
             <div className="space-y-4 grid grid-cols-2 gap-4">
               {/* Language Preference */}
               <div>
-                <label className="block mb-1 font-medium">Language Preference</label>
+                <label className="block mb-1 font-medium">
+                  Language Preference
+                </label>
                 <select
                   className="w-full border px-3 py-2 rounded"
                   {...register("languagePreference")}
@@ -249,7 +307,10 @@ try {
                 <textarea
                   className="w-full border px-3 py-2 rounded"
                   {...register("bio", {
-                    maxLength: { value: 300, message: "Bio must be under 300 characters" },
+                    maxLength: {
+                      value: 300,
+                      message: "Bio must be under 300 characters",
+                    },
                   })}
                   placeholder="Write a short bio..."
                 />
