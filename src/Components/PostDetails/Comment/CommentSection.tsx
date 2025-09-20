@@ -39,7 +39,7 @@ export default function CommentSection({ postId }: { postId: string }) {
       userId: data.user.id,
       updatedAt: null,
     };
-    console.log(payload);
+
 
     try {
       await addComment(payload).unwrap();
@@ -47,7 +47,7 @@ export default function CommentSection({ postId }: { postId: string }) {
       setComment("");
     } catch (err: any) {
       Swal.fire("Failed to add comment");
-      console.log(err);
+   
     }
   };
   return (

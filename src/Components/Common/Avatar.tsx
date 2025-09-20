@@ -30,7 +30,7 @@ const {data: currentUser ,refetch}=useGetCurrentUserQuery(undefined)
       
     }  catch (error) {
        Swal.fire("Logout failed");
-      console.log('Logout failed:', error);
+    
     }
   };
   return (

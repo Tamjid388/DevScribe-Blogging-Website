@@ -14,9 +14,7 @@ export async function POST(req: NextRequest) {
     const formdata = await req.formData()
     const file = formdata.get("file") as File;
 
-    console.log("Received file:", file?.name);
-console.log("File type:", file?.type);
-console.log("File size:", file?.size);
+
 
     if (!file) {
         return NextResponse.json(

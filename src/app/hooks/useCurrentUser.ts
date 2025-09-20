@@ -34,7 +34,7 @@ type User = {
           console.warn("No active session. Proceeding as guest.");
           setCurrentUser(null); 
         } else {
-          console.error("Error fetching user:", error);
+          
         }
       }
     

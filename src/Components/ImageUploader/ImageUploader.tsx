@@ -13,7 +13,7 @@ const ImageUploader = ({ onUploadSuccess }: ImageUploaderProps) => {
   const [result, setResult] = useState<any>(null);
   const [isUploading, setIsUploading] = useState(false);
   const handleAutoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("Event triggered");
+
     const file = e.target.files?.[0]
 
     if (!file) return;
@@ -36,9 +36,9 @@ const ImageUploader = ({ onUploadSuccess }: ImageUploaderProps) => {
       const imageUrl = response.data.optimizeUrl
       //  Send to parent
       onUploadSuccess(imageUrl);
-      console.log(imageUrl);
+     
     } catch (error) {
-      console.log("Error facing in uploading image")
+      
 
     } finally {
       setIsUploading(false)

@@ -21,7 +21,7 @@ export async function GET(req:NextRequest,{params}:{params:Promise<{postid:strin
 
 
     } catch (error) {
-          console.error("Error fetching post:", error);
+
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
 
@@ -32,7 +32,7 @@ export async function GET(req:NextRequest,{params}:{params:Promise<{postid:strin
 // Delete A Post By id
 export async function DELETE(req:NextRequest,{params}:{params:Promise<{postid:string}>}){
     const {postid}=await params
-    console.log(postid)
+
 
     try {
         const allPostsCollection=await connectToDB('allPosts')
@@ -55,7 +55,7 @@ if(result.deletedCount=== 0){
 
 
     } catch (error) {
-          console.error("Error fetching post:", error);
+        
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
 

@@ -28,7 +28,7 @@ export function usePost(){
         setPosts(response.data.result);
       } catch (err: any) {
        
-        console.error("Failed to fetch posts:", err);
+ 
       } finally {
         setLoading(false); 
       }

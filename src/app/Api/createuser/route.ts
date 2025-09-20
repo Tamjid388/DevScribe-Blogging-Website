@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
     try {
         const body = await request.json()
         const { email, username, password } = body
-        console.log(body);
+      
 
         const userCollection = await connectToDB("Users")
         const userExist: string | any =await userCollection.findOne({ email })
@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
 
 
     } catch (error) {
-        console.error("Error creating user:", error);
+        
          return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

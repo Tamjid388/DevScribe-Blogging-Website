@@ -37,7 +37,7 @@ export async function PUT(req: NextRequest) {
     });
 
   } catch (error) {
-    console.error("Error updating user:", error);
+    
     return NextResponse.json(
       { message: "Failed to update user", success: false },
       { status: 500 }

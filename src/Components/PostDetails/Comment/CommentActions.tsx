@@ -26,7 +26,7 @@ export default function CommentActions({commentid, postId}:
 
   const handleClick = () => {
     toast.success(commentid);
-    console.log('This is a success message!');
+
   };
   return (
     <div className="dropdown dropdown-end">

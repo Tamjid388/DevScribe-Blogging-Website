@@ -20,7 +20,7 @@ const [formData,SetFormData]=useState(
 
     try {
         const response=await registerUser(formData).unwrap();
-        console.log(response);
+     
     if (response && response.message === "User created successfully") {
   router.push('/');
         Swal.fire({
