@@ -1,5 +1,5 @@
 import { connectToDB } from "@/lib/dbconnect";
-import { ObjectId } from "mongodb";
+
 import { NextRequest, NextResponse } from "next/server";
 
 // Add Comment By Id
@@ -18,7 +18,6 @@ export async function POST(
   };
   const result = await commentsCollection.insertOne(comment);
 
-  console.log(comment);
   return NextResponse.json({ comments: comment });
 }
 

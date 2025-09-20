@@ -59,10 +59,7 @@ export default function CommentSection({ postId }: { postId: string }) {
         </p>
       </div>
       <div className="flex space-x-2">
-        {/* Avatar */}
-        {/* <div className="bg-neutral text-neutral-content w-9 h-9 rounded-full flex justify-center items-center">
-          <span className="text-xl text-white">TA</span>
-        </div> */}
+ 
 
         <div className=" w-full flex flex-col gap-3">
           <textarea
@@ -81,7 +78,7 @@ export default function CommentSection({ postId }: { postId: string }) {
           </button>
         </div>
       </div>
-      {/* All Comments */}
+      {/*Show   All Comments */}
       <div className="mt-4 space-y-2">
         {loadingComments && <LoadingSpinner />}
         {isError && <p>Failed to load comments.</p>}
@@ -99,24 +96,22 @@ export default function CommentSection({ postId }: { postId: string }) {
               className="shadow-xs shadow-gray-300
              hover:shadow-md  transition-shadow duration-300 py-2 flex justify-between"
             >
-             <div>
-               <p className="font-semibold">{comment.username}</p>{" "}
-              {/* username available? */}
-              <p>{comment.content}</p>
-              <small className="text-gray-500">
-                {comment.updatedAt
-                  ? new Date(comment.updatedAt).toLocaleString()
-                  : new Date(comment.createdAt).toLocaleString()}
-              </small>
-             </div>
-             {/* Actions */}
-             <div className="mx-2">
-            
-   
-<CommentActions commentid={comment._id}/>
-             
-             </div>
-
+              <div>
+                <p className="font-semibold">{comment.username}</p>{" "}
+                {/* username available? */}
+                <p>{comment.content}</p>
+                <small className="text-gray-500">
+                  {comment.updatedAt
+                    ? new Date(comment.updatedAt).toLocaleString()
+                    : new Date(comment.createdAt).toLocaleString()}
+                </small>
+              </div>
+              {/* Actions */}
+              <div className="mx-2">
+                 {data?.user.id === comment.userId && (
+      <CommentActions commentid={comment._id} postId={comment.postId} />
+    )}
+              </div>
             </div>
           ))}
       </div>

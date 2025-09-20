@@ -25,7 +25,7 @@ type Post = {
 
 
 const Postdetails=()=>{
-     const params = useParams();
+  const params = useParams();
   const slug = params.slug as string;
 
 
@@ -48,7 +48,7 @@ return(
          <h1 className="text-xl font-semibold mb-3 px-2"> Blog Tools</h1>
          <h1 className="text-md font-semibold opacity-80 px-2 mb-2">Engage with this post</h1>
 
-        <Sidebar/>
+        <Sidebar postId={slug}/>
         <div className="divider"></div>
         <SummarizeText content={post?.content}/>
        </div>

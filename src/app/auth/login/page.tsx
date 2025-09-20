@@ -12,10 +12,9 @@ import { useRouter } from "next/navigation";
    const router = useRouter();
 
   const handleSubmit =async (e: React.FormEvent) => {
-    console.log("Submit button hit");
+ 
     e.preventDefault();
-    console.log({ email, password });
-    // loginUser({ email, password })
+
 
     try {
        const response = await loginUser({ email, password }).unwrap();
